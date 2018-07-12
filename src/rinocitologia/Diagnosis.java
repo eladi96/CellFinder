@@ -16,7 +16,7 @@ public class Diagnosis {
 
 	private Environment clips = null;
 	private InputHandler handler;
-	private Dictionary dict;
+	private Patient dict;
 	private ClipsManager cm;
 
 	Diagnosis() throws FileNotFoundException, DocumentException {
@@ -34,7 +34,7 @@ public class Diagnosis {
 		}
 		
 		//DIAGNOSI NARESMA
-		dict = new Dictionary();
+		dict = new Patient();
 		dict.addElement("Eosinofili", 6);
 		dict.addElement("Mastociti", 6);
 		dict.addElement("Neutrofili", 6);
@@ -46,7 +46,7 @@ public class Diagnosis {
 	
 		/*
 		//EXAMPLE OF ADDING ELEMENTS MANUALLY TO DICTIONARY NO NAME
-		dict = new Dictionary();
+		dict = new Patient();
 		dict.addElement("Neutrofili", 6);
 		handler = new InputHandler(clips, dict);
 		handler.assertFacts();
@@ -57,7 +57,7 @@ public class Diagnosis {
 		
 		/*
 		//EXAMPLE OF ADDING ELEMENTS MANUALLY TO DICTIONARY NAME
-		dict = new Dictionary("gian", "sekko");
+		dict = new Patient("gian", "sekko");
 		dict.addElement("Neutrofili", 6);
 		handler = new InputHandler(clips, dict);
 		handler.assertFacts();
@@ -69,7 +69,7 @@ public class Diagnosis {
 		
 		/*
 		//EXAMPLE OF LOAD INFORMATIONS FROM JSON NO NAME
-		Utility util = new Utility(new Dictionary());
+		Utility util = new Utility(new Patient());
 		dict = util.readJson();
 		System.out.println(dict);
 		handler = new InputHandler(clips, dict);
@@ -78,7 +78,7 @@ public class Diagnosis {
 		
 		/*
 		//EXAMPLE OF LOAD INFORMATIONS FROM JSON NAME
-		Utility util = new Utility(new Dictionary());
+		Utility util = new Utility(new Patient());
 		dict = util.readJson("Lac", "Gua");
 		System.out.println(dict);
 		handler = new InputHandler(clips, dict);
@@ -88,7 +88,7 @@ public class Diagnosis {
 		
 		/*
 		//PROVA LETTURA DA FILE SERGIO
-		dict = new Dictionary("Lac", "Gua");
+		dict = new Patient("Lac", "Gua");
 		handler = new InputHandler(clips, dict);
 		handler.readFile();
 		System.out.println(dict);
@@ -102,7 +102,6 @@ public class Diagnosis {
 
 	public static void main(String args[]) throws FileNotFoundException, DocumentException {
 	// void repl() {
-		System.out.println("CIAOOOOOO");
 		Diagnosis elimina = new Diagnosis();
 		boolean endInteraction = false;
 		Scanner in = new Scanner(System.in);

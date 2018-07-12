@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Stream;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,17 +17,17 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import rinocitologia.Cell;
-import rinocitologia.Dictionary;
+import rinocitologia.Patient;
 
 
 /**
- * Provides some utilities such as transformation of data stored in Dictionary in XML file, JSON and PDF.
+ * Provides some utilities such as transformation of data stored in Patient in XML file, JSON and PDF.
  * <br>
  * Refer to https://stackoverflow.com/questions/5971964/file-separator-or-file-pathseparator for File.separator.
  */
 public class Utility {
 	
-	private Dictionary dict;
+	private Patient dict;
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private String PATH = String.format("%s", System.getProperty("user.home"));
 	
@@ -36,7 +35,7 @@ public class Utility {
 	 * Instantiates dict by a parameter and creates inputs and reports folders.
 	 * @param dict
 	 */
-	public Utility(Dictionary dict) {
+	public Utility(Patient dict) {
 		this.dict = dict;
 		createDirs();
 				
@@ -78,7 +77,7 @@ public class Utility {
 	
 	
 	/**
-	 * Writes informations contained in Dictionary in a JSON File located in data/<FistName>_<Surname>/.
+	 * Writes informations contained in Patient in a JSON File located in data/<FistName>_<Surname>/.
 	 * If the directory does not exist, creates it.
 	 */
 	public void writeJson() {
@@ -99,15 +98,15 @@ public class Utility {
 	
 	
 	/**
-	 * Reads informations contained in a JSON format file (retrieved by firstName and surname) and populates an instance of Dictionary.
+	 * Reads informations contained in a JSON format file (retrieved by firstName and surname) and populates an instance of Patient.
 	 * @param firstName String that contains user's first name.
 	 * @param surname String that contains user's surname.
-	 * @return dictionary instance of the class Dictionary populated with the informations obtained from JSON file.
+	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
 	 */
-	public Dictionary readJson(String firstName, String surname) {
+	public Patient readJson(String firstName, String surname) {
 		String directoryPath = PATH + File.separator + "data" + File.separator + firstName + "_" + surname + File.separator + "reports";
 		String fullPath = directoryPath + File.separator + firstName + "_" + surname + ".json";
-		Dictionary dictionary = null;
+		Patient patient = null;
 		
 		try {
 			  
@@ -120,27 +119,25 @@ public class Utility {
 			     new FileReader(fullPath));
 			   
 			    //convert the json string back to object
-			   dictionary = gson.fromJson(br, Dictionary.class);
+			   patient = gson.fromJson(br, Patient.class);
 
 			  
 			  } catch (IOException e) {
 			   e.printStackTrace();
 			  }
 			 
-		return dictionary;
+		return patient;
 	}
 	
 	
 	/**
-	 * Reads informations contained in a JSON format file (retrieved by firstName = Pinco and surname = Pallino) and populates an instance of Dictionary.
-	 * @param firstName String that contains user's first name.
-	 * @param surname String that contains user's surname.
-	 * @return dictionary instance of the class Dictionary populated with the informations obtained from JSON file.
+	 * Reads informations contained in a JSON format file (retrieved by firstName = Pinco and surname = Pallino) and populates an instance of Patient.
+	 * @return dictionary instance of the class Patient populated with the informations obtained from JSON file.
 	 */
-	public Dictionary readJson() {
+	public Patient readJson() {
 		String directoryPath = PATH + File.separator + "data" + File.separator + "Pinco_Pallino" + File.separator + "reports";
 		String fullPath = directoryPath + File.separator + "Pinco_Pallino" + ".json";
-		Dictionary dictionary = null;
+		Patient patient = null;
 		
 		try {
 			  
@@ -153,14 +150,14 @@ public class Utility {
 			     new FileReader(fullPath));
 			   
 			    //convert the json string back to object
-			   dictionary = gson.fromJson(br, Dictionary.class);
+			   patient = gson.fromJson(br, Patient.class);
 
 			  
 			  } catch (IOException e) {
 			   e.printStackTrace();
 			  }
 			 
-		return dictionary;
+		return patient;
 	}
 	
 	/**

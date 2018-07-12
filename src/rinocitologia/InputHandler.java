@@ -14,16 +14,16 @@ import net.sf.clipsrules.jni.Environment;
  */
 public class InputHandler {
 	private Environment clips;
-	private Dictionary dictionary;
+	private Patient patient;
 	private String PATH = System.getProperty("user.home");
 	
 	/**
 	 * @param clips An instance of the clips engine.
-	 * @param dictionary An instance of the object containing all the information useful to fill generate facts.
+	 * @param patient An instance of the object containing all the information useful to fill generate facts.
 	 */
-	public InputHandler(Environment clips, Dictionary dictionary) {
+	public InputHandler(Environment clips, Patient patient) {
 		this.clips = clips;
-		this.dictionary = dictionary;
+		this.patient = patient;
 	}
 	
 	/**
@@ -37,9 +37,9 @@ public class InputHandler {
 	 */
 	public void assertFacts() {
 		String assertion;
-		dictionary.completeDictionary();
+		patient.completeDictionary();
 		
-		for (Map.Entry<String, Cell> entry : dictionary.getDictionary().entrySet()) {
+		for (Map.Entry<String, Cell> entry : patient.getDictionary().entrySet()) {
 			assertion = "(cellule (nome " + entry.getKey() + ") (grado " + entry.getValue().getgrade() + "))";
 			//System.out.println(assertion);
 			clips.assertString(assertion);
@@ -49,18 +49,18 @@ public class InputHandler {
 	
 	
 	/**
-	 * Read and parse a file (locating it by patient's name) and populates an instance of dictionary.
-	 * @return dictionary An instance of Dictionary containing informations retrieved from file and subsequently filled with default values for missing entries.
+	 * Read and parse a file (locating it by patient's name) and populates an instance of patient.
+	 * @return patient An instance of Patient containing informations retrieved from file and subsequently filled with default values for missing entries.
 	 */
-	public Dictionary readFile() {
+	public Patient readFile() {
 		
-		if(dictionary.getFirstName()==null && dictionary.getSurname()==null) {
-			dictionary.setFirstName("Pinco");
-			dictionary.setSurname("Pallino");
+		if(patient.getFirstName()==null && patient.getSurname()==null) {
+			patient.setFirstName("Pinco");
+			patient.setSurname("Pallino");
 		}
 		
-		String directoryPath = PATH + File.separator + "data" + File.separator + dictionary.getFirstName() + "_" + dictionary.getSurname() + File.separator + "inputs";
-		String fullPath = directoryPath + File.separator + dictionary.getFirstName() + "_" + dictionary.getSurname() + ".txt";
+		String directoryPath = PATH + File.separator + "data" + File.separator + patient.getFirstName() + "_" + patient.getSurname() + File.separator + "inputs";
+		String fullPath = directoryPath + File.separator + patient.getFirstName() + "_" + patient.getSurname() + ".txt";
 		
 		try {
 			File file = new File(fullPath);
@@ -72,7 +72,7 @@ public class InputHandler {
 				stringBuffer.append(line);
 				stringBuffer.append("\n");
 				String[] array = parseInput(line);
-				dictionary.addElement(array[0], Integer.parseInt(array[1]));
+				patient.addElement(array[0], Integer.parseInt(array[1]));
 			}
 			fileReader.close();
 			System.out.println("Contents of file:");
@@ -81,9 +81,9 @@ public class InputHandler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		dictionary.completeDictionary();
+		patient.completeDictionary();
 		
-		return dictionary;
+		return patient;
 	}
 	
 	public String[] parseInput(String line) {

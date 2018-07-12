@@ -15,14 +15,14 @@ import java.util.Map;
  * <br>
  * Contains methods useful to manipulate those informations.
  */
-public class Dictionary {
+public class Patient {
 	private String firstName; //????????
 	private String surname; //??????
 	private Map<String, Cell> dictionary;
 	
 	
 
-	public Dictionary() {
+	public Patient() {
 		dictionary = new HashMap<String, Cell>();
 		final File folder = new File(System.getProperty("user.home") + File.separator + "data" , "Pinco_Pallino");
 		if(!folder.exists() && !folder.mkdir()) {
@@ -31,7 +31,7 @@ public class Dictionary {
 		}
 	}
 	
-	public Dictionary(String name, String surname) {
+	public Patient(String name, String surname) {
 		dictionary = new HashMap<String, Cell>();
 		this.firstName = name;
 		this.surname = surname;
