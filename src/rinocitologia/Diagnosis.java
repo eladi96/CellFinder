@@ -102,6 +102,7 @@ public class Diagnosis {
 
 	public static void main(String args[]) throws FileNotFoundException, DocumentException {
 	// void repl() {
+		System.out.println("CIAOOOOOO");
 		Diagnosis elimina = new Diagnosis();
 		boolean endInteraction = false;
 		Scanner in = new Scanner(System.in);
